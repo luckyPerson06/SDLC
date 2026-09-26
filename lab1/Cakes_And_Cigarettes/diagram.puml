@@ -1,0 +1,116 @@
+@startuml
+skinparam linetype ortho
+skinparam classAttributeIconSize 0
+skinparam nodesep 100
+skinparam ranksep 80
+
+title UML Диаграмма классов - Вариант 18: Калькулятор Тортиков
+footer MVC с активной моделью | JavaFX | IntelliJ IDEA
+
+class CakeCalculatorModel {
+    - cigarettesPerDay: IntegerProperty
+    - pricePerPack: DoubleProperty
+    - tarPerCigarette: DoubleProperty
+    - nicotinePerCigarette: DoubleProperty
+    - yearsSmoking: IntegerProperty
+    - cakePrice: DoubleProperty
+    - orangePrice: DoubleProperty
+    - totalTar: DoubleProperty
+    - totalNicotine: DoubleProperty
+    - totalMoneySpent: DoubleProperty
+    - cakesCount: DoubleProperty
+    - orangesCount: DoubleProperty
+    + calculate(): void
+    + getCigarettesPerDayProperty(): IntegerProperty
+    + getYearsSmokingProperty(): IntegerProperty
+    + getTotalTarProperty(): DoubleProperty
+    + getTotalNicotineProperty(): DoubleProperty
+    + getTotalMoneySpentProperty(): DoubleProperty
+    + getCakesCountProperty(): DoubleProperty
+    + getOrangesCountProperty(): DoubleProperty
+    + getCigarettesPerDay(): int
+    + getPricePerPack(): double
+    + getTarPerCigarette(): double
+    + getNicotinePerCigarette(): double
+    + getYearsSmoking(): int
+    + getCakePrice(): double
+    + getOrangePrice(): double
+    + setCigarettesPerDay(int): void
+    + setPricePerPack(double): void
+    + setTarPerCigarette(double): void
+    + setNicotinePerCigarette(double): void
+    + setYearsSmoking(int): void
+    + setCakePrice(double): void
+    + setOrangePrice(double): void
+}
+
+class MainView {
+    - primaryStage: Stage
+    - btnEnterData: Button
+    - lblTitle: Label
+    - lblCigarettesInfo: Label
+    - lblTarResult: Label
+    - lblNicotineResult: Label
+    - lblMoneyResult: Label
+    - lblCakesResult: Label
+    - lblOrangesResult: Label
+    - lblLastData: Label
+    + bindToModel(CakeCalculatorModel): void
+    + show(): void
+    + getBtnEnterData(): Button
+    + updateLastDataInfo(String): void
+}
+
+class InputDialogView {
+    - currentStage: Stage
+    - txtCigarettesPerDay: TextField
+    - txtPricePerPack: TextField
+    - txtTarPerCigarette: TextField
+    - txtNicotinePerCigarette: TextField
+    - txtYearsSmoking: TextField
+    - txtCakePrice: TextField
+    - txtOrangePrice: TextField
+    + showAndWait(): boolean
+    + getCigarettesPerDay(): String
+    + getPricePerPack(): String
+    + getTarPerCigarette(): String
+    + getNicotinePerCigarette(): String
+    + getYearsSmoking(): String
+    + getCakePrice(): String
+    + getOrangePrice(): String
+}
+
+class CalculatorController {
+    - model: CakeCalculatorModel
+    - mainView: MainView
+    - inputDialog: InputDialogView
+    + handleEnterData(): void
+    - validateAndProcess(String, String, String, String, String, String, String): boolean
+    - showError(String): void
+    - updateLastDataInfo(): void
+}
+
+class CakesAndCigarettesApp {
+    - videoShown: boolean
+    - VIDEO_PATH: String
+    + start(Stage): void
+    + main(String[]): void
+}
+
+class CelebrationView {
+    - stage: Stage
+    + show(): void
+    - openVideo(String): void
+}
+
+CakesAndCigarettesApp -down-> MainView : creates
+CakesAndCigarettesApp -down-> CalculatorController : creates
+CakesAndCigarettesApp -down-> CelebrationView : triggers at 1000 cakes
+
+CalculatorController -down-> InputDialogView : creates dialog
+
+MainView -right-> CakeCalculatorModel : "observes\n(Active Model)"
+CalculatorController -right-> CakeCalculatorModel : updates data
+InputDialogView -right-> CakeCalculatorModel : reads last data
+
+@enduml
