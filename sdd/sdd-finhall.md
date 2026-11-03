@@ -73,12 +73,39 @@ Backend реализует классическую слоистую архит�
 - **Representation**: Все защищенные эндпоинты требуют заголовок `Authorization: Bearer <JWT>`. Данные передаются в формате JSON.
 - **More Information**: Ссылка на `REQ-FUNC-001` (аутентификация) и `REQ-FUNC-003` (переводы) из SRS.
 
+### 3.1 Implementation Plan & Iterations (План реализации)
+На основе переговоров с Заказчиком был сформирован план разработки. Приоритеты выставлены от 10 (наивысший) до 50 (минимальный). В связи с жесткими дедлайнами и добавлением новой функциональности было принято решение о найме Junior-разработчика для параллельной работы над UI и генерацией отчетов.
+
+**Iteration 1 (Priority 10-20): Core Banking**
+* Authentication (2FA) — *Senior*
+* View Balance — *Senior*
+* Funds Transfer — *Senior*
+* Set Limits (Admin) — *Senior*
+
+**Iteration 2 (Priority 30-40): Features & Reporting**
+* PDF Statement Export — *Junior* (New requirement from Client)
+* Currency Exchange API — *Senior*
+
+**Iteration 3 (Priority 50): Analytics & Release**
+* Expense Analytics — *Senior*
+* System Testing & Bug Fixing — *Team*
+
+**Team Changes:**
+* 1 Senior Developer (Architect)
+* 1 Junior Developer (Added after negotiation to speed up UI and PDF tasks under strict code review).
+
 ## 4. Решения
 В данном разделе продублированы ключевые решения из ADR для удобства чтения.
+
 - **ID**: 001-DB
 - **Title**: Использование PostgreSQL
 - **Outcome**: Выбрана PostgreSQL из-за строгого соблюдения ACID.
 - **More Information**: См. `adr/adr-finhall.md`.
+
+- **ID**: 002-PDF-Generation
+- **Title**: Implementation of PDF Statement Export
+- **Outcome**: Added new feature requested by the Client during negotiations. Will be implemented using the iText library by the Junior Developer.
+- **More Information**: См. ADR-003 в `adr/adr-finhall.md`.
 
 ## 5. Приложения
 Диаграммы компонентов и схемы БД будут добавлены на этапе детального проектирования.
